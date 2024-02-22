@@ -7,10 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        "lapis-shade": "#0076dc",
+        heliotrope: "#7a1ba6",
+      },
+      backgroundImage: (theme) => ({
+        "lapis-gradient":
+          "linear-gradient(90deg, var(--lapis-shade) 0%, var(--heliotrope) 100%)",
+        "eggplant-gradient":
+          "linear-gradient(260.85deg, #7e5cef 10.29%, #002838 89.71%)",
+      }),
+      fontFamily: {
+        sans: ["Open Sans", "sans-serif"],
       },
     },
   },

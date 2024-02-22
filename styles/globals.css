@@ -26,6 +26,14 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+/* styles/global.css */
+.text-eggplant-gradient {
+  background-image: linear-gradient(260.85deg, #7e5cef 10.29%, #002838 89.71%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
