@@ -2,10 +2,12 @@ import Head from "next/head";
 import Footer from "../components/Footer";
 import PostCard from "../components/PostCard";
 import { getAllPosts } from "../lib/test-data";
-import { client } from "@/lib/apollo";
+import { client } from "@/lib/api";
 import { gql } from "@apollo/client";
 
-export default function Home({ posts }) {
+export default function Home({ data }) {
+  console.log(data);
+  console.log(data[0].title);
   return (
     <div className='min-h-screen bg-coolGray-50 text-gray-800'>
       <Head>
@@ -15,7 +17,7 @@ export default function Home({ posts }) {
       <main className='py-20'>
         <section className='text-center mb-20'>
           <h1 className='text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600'>
-            Headless WordPress Next.js Starter
+            Headless WordPress Next.js Starter {data[0].title.rendered}
           </h1>
           <p className='mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto'>
             Kickstart your next project with the power of headless CMS.
@@ -23,9 +25,10 @@ export default function Home({ posts }) {
         </section>
 
         <section className='flex flex-wrap justify-center items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          {posts.map((post) => (
+          {data.map((post) => (
             <div key={post.uri} className='p-4 w-full md:w-1/2 lg:w-1/2'>
               <PostCard post={post} />
+              {/* <h1>{post.title.rendered}</h1> */}
             </div>
           ))}
         </section>
@@ -36,43 +39,20 @@ export default function Home({ posts }) {
   );
 }
 
-export async function getStaticProps() {
-  const GET_POSTS = gql`
-    query GetAllPosts {
-      posts {
-        nodes {
-          title
-          content
-          uri
-          date
-        }
-      }
-    }
-  `;
+export async function getServerSideProps(context) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp-json/wp/v2/posts`
+  );
+  const data = await res.json();
 
-  try {
-    const response = await client.query({
-      query: GET_POSTS,
-    });
-
-    // Ensure posts are defined, even if the query returns null or undefined
-    const posts = response?.data?.posts?.nodes ?? [];
-
+  if (!data) {
     return {
-      props: {
-        posts,
-      },
-      // Optionally, add revalidate key to enable ISR (Incremental Static Regeneration) with a fallback time
-      revalidate: 10, // In seconds
-    };
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-
-    // Return an empty array for posts if there's an error
-    return {
-      props: {
-        posts: [],
-      },
+      notFound: true,
     };
   }
+  return {
+    props: {
+      data,
+    },
+  };
 }
