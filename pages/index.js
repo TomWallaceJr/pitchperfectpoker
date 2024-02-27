@@ -56,7 +56,7 @@ export default function Home({ data }) {
 export async function getServerSideProps(context) {
   // Fetches the list of posts from WordPress REST API
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp-json/wp/v2/posts`
+    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp/v2/posts`
   );
   const data = await res.json();
 

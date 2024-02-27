@@ -47,7 +47,7 @@ export default function SlugPage({ post }) {
 export async function getStaticProps({ params }) {
   // Fetches the post using the WordPress REST API and the slug from the URL.
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp-json/wp/v2/posts?slug=${params.uri}`
+    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp/v2/posts?slug=${params.uri}`
   );
   const posts = await res.json();
 
@@ -73,7 +73,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   // Fetches all available post slugs to generate static paths for them.
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp-json/wp/v2/posts?_fields=slug`
+    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp/v2/posts?_fields=slug`
   );
   const posts = await res.json();
 
