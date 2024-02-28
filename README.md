@@ -5,7 +5,7 @@ Uses Tailwind CSS for styling.
 
 Uses older NextJs routing system (Not using APP ROUTER)
 
-Right now it is a boilerplate but I will use as my personal blog and website "Pitch Perfect Poker" eventually.
+Right now it is a boilerplate but I will use as my personal blog and website "Pitch Perfect Poker" eventually
 
 ## Getting Started
 
