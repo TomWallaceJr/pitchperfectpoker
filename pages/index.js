@@ -30,7 +30,7 @@ export default function Home({ data }) {
         {/* Hero section with a large title and subtitle */}
         <section className='text-center mb-20'>
           <h1 className='text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600'>
-            Headless WordPress Next.js Starter {data[0].title.rendered}
+            Headless WordPress Next.js Starter
           </h1>
           <p className='mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto'>
             Kickstart your next project with the power of headless CMS.
